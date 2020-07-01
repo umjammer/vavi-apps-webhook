@@ -42,6 +42,6 @@ public class GoogleNotificationServlet extends NotificationServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
         super.doPost(req, resp);
-channelDataStore.keySet().forEach(k -> { try { LOG.debug(channelDataStore.get(k).toString()); } catch (IOException e) {}});
+channelDataStore.keySet().forEach(k -> { try { LOG.debug(k + ": " + channelDataStore.get(k)); } catch (IOException e) {}});
     }
 }
