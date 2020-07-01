@@ -16,8 +16,6 @@
 
 package vavi.net.webhook;
 
-import java.util.Map;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -35,16 +33,5 @@ public class Main {
     @RequestMapping("/")
     String index() {
         return "index";
-    }
-
-    @RequestMapping("/webhook/google/drive/change")
-    String webhookGoogleDriveChange(Map<String, Object> model) {
-        try {
-            model.put("records", "");
-            return "db";
-        } catch (Exception e) {
-            model.put("message", e.getMessage());
-            return "error";
-        }
     }
 }
