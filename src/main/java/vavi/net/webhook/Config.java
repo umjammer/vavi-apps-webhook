@@ -37,7 +37,7 @@ public class Config {
     @Bean
     DataStore<StoredChannel> channelDataStore() throws IOException {
         String googcleChannelId = System.getenv(GOOGCLE_CHANNEL_ID);
-        DataStore<StoredChannel> channelDataStore = MemoryDataStoreFactory.getDefaultInstance().getDataStore(googcleChannelId);
+        DataStore<StoredChannel> channelDataStore = MemoryDataStoreFactory.getDefaultInstance().getDataStore("googcleChannelId");
         StoredChannel storedChannel = new StoredChannel((c, n) -> {
 LOG.debug("storedChannel: " + c);
 LOG.debug("notification: " + n);
