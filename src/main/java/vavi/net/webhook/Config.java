@@ -8,8 +8,6 @@ package vavi.net.webhook;
 
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -30,25 +28,17 @@ import com.google.api.client.util.store.MemoryDataStoreFactory;
 @Configuration
 public class Config {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Config.class);
-
-    static final String GOOGCLE_CHANNEL_ID = "GOOGCLE_CHANNEL_ID";
-
     @Bean
     DataStore<StoredChannel> channelDataStore() throws IOException {
-        String googcleChannelId = System.getenv(GOOGCLE_CHANNEL_ID);
-        DataStore<StoredChannel> channelDataStore = MemoryDataStoreFactory.getDefaultInstance().getDataStore("googcleChannelId");
-        StoredChannel storedChannel = new StoredChannel((c, n) -> {
-LOG.debug("storedChannel: " + c);
-LOG.debug("notification: " + n);
-        });
-        channelDataStore.set(googcleChannelId, storedChannel);
-        return channelDataStore;
+        return MemoryDataStoreFactory.getDefaultInstance().getDataStore("googcleChannelId");
     }
 
     @Bean
-    ServletRegistrationBean<GoogleNotificationServlet> googleNotificationServletRegistrationBean(@Autowired DataStore<StoredChannel> channelDataStore) throws IOException {
-        ServletRegistrationBean<GoogleNotificationServlet> bean = new ServletRegistrationBean<>(new GoogleNotificationServlet(channelDataStore));
+    ServletRegistrationBean<GoogleNotificationServlet> googleNotificationServletRegistrationBean(
+        @Autowired DataStore<StoredChannel> channelDataStore,
+        @Autowired WebHookService webHookService) throws IOException {
+        GoogleNotificationServlet servlet = new GoogleNotificationServlet(channelDataStore, webHookService);
+        ServletRegistrationBean<GoogleNotificationServlet> bean = new ServletRegistrationBean<>(servlet);
         bean.addUrlMappings("/webhook/google/drive/change/*");
         return bean;
     }
