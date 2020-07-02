@@ -107,7 +107,7 @@ LOG.info("OPEN: " + session);
     }
 
     @OnMessage
-    public void handleMessage(Session session, String message) {
+    public void handleMessage(Session session, String message) throws IOException {
 LOG.info("MESSAGE: " + message);
         service.handle(session, message);
     }

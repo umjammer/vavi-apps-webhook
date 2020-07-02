@@ -21,9 +21,7 @@ import com.google.api.client.util.store.DataStore;
  */
 public class GoogleNotificationServlet extends NotificationServlet {
 
-    public GoogleNotificationServlet(DataStore<StoredChannel> channelDataStore, WebHookService webHookService) throws IOException {
+    public GoogleNotificationServlet(DataStore<StoredChannel> channelDataStore) throws IOException {
         super(channelDataStore);
-        StoredChannel storedChannel = new StoredChannel(webHookService::processGoogleDriveChange);
-        channelDataStore.set(System.getenv(WebHookService.GOOGCLE_CHANNEL_ID), storedChannel);
     }
 }

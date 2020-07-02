@@ -30,20 +30,19 @@ public class Config {
 
     @Bean
     DataStore<StoredChannel> channelDataStore() throws IOException {
-        return MemoryDataStoreFactory.getDefaultInstance().getDataStore("googcleChannelId");
+        return MemoryDataStoreFactory.getDefaultInstance().getDataStore("googcleChannel");
     }
 
     @Bean
     ServletRegistrationBean<GoogleNotificationServlet> googleNotificationServletRegistrationBean(
-        @Autowired DataStore<StoredChannel> channelDataStore,
-        @Autowired WebHookService webHookService) throws IOException {
-        GoogleNotificationServlet servlet = new GoogleNotificationServlet(channelDataStore, webHookService);
+        @Autowired DataStore<StoredChannel> channelDataStore) throws IOException {
+        GoogleNotificationServlet servlet = new GoogleNotificationServlet(channelDataStore);
         ServletRegistrationBean<GoogleNotificationServlet> bean = new ServletRegistrationBean<>(servlet);
         bean.addUrlMappings("/webhook/google/drive/change/*");
         return bean;
     }
 
-    //    @Bean
+    @Bean
     FilterRegistrationBean<RequestValidationFilter> requestValidationFilterRegistrationBean() {
         FilterRegistrationBean<RequestValidationFilter> bean = new FilterRegistrationBean<>(new RequestValidationFilter());
         bean.addUrlPatterns("/webhook/google/drive/change/*");
