@@ -1,1 +1,1 @@
-web: java -jar target/vavi-apps-webhook-0.0.1-SNAPSHOT.jar
+web: java -Dorg.apache.catalina.connector.Response.ENFORCE_ENCODING_IN_GET_WRITER=false -jar target/vavi-apps-webhook-0.0.1-SNAPSHOT.jar

@@ -26,6 +26,7 @@ import vavi.net.webhook.support.CachedBodyHttpServletRequest;
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/07/01 umjammer initial version <br>
  * @see "https://tsmatz.wordpress.com/2016/04/22/onedrive-api-webhook-and-synchronization-delta/"
+ * @see "https://stackoverflow.com/a/19957972/6102938"
  */
 public class OneDriveRequestValidationFilter implements Filter {
 
@@ -41,9 +42,9 @@ public class OneDriveRequestValidationFilter implements Filter {
             String validationtoken = httpRequest.getParameter("validationtoken");
             if (validationtoken != null) {
 LOG.warn("process verify");
-                ((HttpServletResponse) response).addHeader("Content-Type", "text/plain");
-//                ((HttpServletResponse) response).addHeader("X-Content-Type-Options", "nosniff");
-                ((HttpServletResponse) response).getWriter().write(validationtoken);
+                HttpServletResponse httpResponse = (HttpServletResponse) response;
+                httpResponse.setContentType("text/plain");
+                httpResponse.getWriter().write(validationtoken);
                 return;
             } else {
 LOG.warn("process normal");

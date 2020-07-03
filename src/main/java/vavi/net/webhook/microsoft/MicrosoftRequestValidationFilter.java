@@ -42,9 +42,9 @@ public class MicrosoftRequestValidationFilter implements Filter {
             String validationtoken = httpRequest.getParameter("validationToken");
             if (validationtoken != null) {
 LOG.warn("process verify");
-                ((HttpServletResponse) response).addHeader("Content-Type", "text/plain");
-                ((HttpServletResponse) response).addHeader("X-Content-Type-Options", "nosniff");
-                ((HttpServletResponse) response).getWriter().write(validationtoken);
+                HttpServletResponse httpResponse = (HttpServletResponse) response;
+                httpResponse.setContentType("text/plain");
+                httpResponse.getWriter().write(validationtoken);
                 return;
             } else {
 LOG.warn("process normal");
