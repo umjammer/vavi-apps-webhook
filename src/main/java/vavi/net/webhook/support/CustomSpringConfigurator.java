@@ -2,7 +2,7 @@
  * https://stackoverflow.com/a/38935987/6102938
  */
 
-package vavi.net.webhook;
+package vavi.net.webhook.support;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;

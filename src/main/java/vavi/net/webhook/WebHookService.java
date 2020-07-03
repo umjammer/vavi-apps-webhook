@@ -20,6 +20,10 @@ import com.google.api.client.googleapis.notifications.StoredChannel;
 import com.google.api.client.googleapis.notifications.UnparsedNotification;
 import com.google.api.client.util.store.DataStore;
 
+import vavi.net.webhook.box.BoxNotificationEndpoint;
+import vavi.net.webhook.dropbox.DropBoxNotificationEndpoint;
+import vavi.net.webhook.google.GoogleNotificationServlet;
+
 
 /**
  * WebHookService.
@@ -30,21 +34,13 @@ import com.google.api.client.util.store.DataStore;
 @Service
 public class WebHookService implements Serializable {
 
-    private static final Logger LOG = LoggerFactory.getLogger(WebHookService.class);
+    private transient static final Logger LOG = LoggerFactory.getLogger(WebHookService.class);
 
-    static final String VAVI_APPS_WEBHOOK_SECRET = "VAVI_APPS_WEBHOOK_SECRET";
+    public transient static final String VAVI_APPS_WEBHOOK_SECRET = "VAVI_APPS_WEBHOOK_SECRET";
+    public transient static final String DROPBOX_CLIENT_SECRET = "DROPBOX_CLIENT_SECRET";
+    public transient static final String BOX_WEBHOOK_PRIMARY_KEY = "BOX_WEBHOOK_PRIMARY_KEY";
 
-    void processGoogleDriveChange(StoredChannel storedChannel, UnparsedNotification notification) {
-LOG.info("storedChannel: " + storedChannel);
-LOG.info("notification: " + notification);
-        try {
-            // this method will be serialized, so using wired way like followings
-            MyBeanFactory.getNotificationEndpointInternal().sendNotification(notification);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /** */
     public void handle(Session session, String message) throws IOException {
 LOG.info("session: " + session);
 LOG.info("message: " + message);
@@ -59,14 +55,43 @@ LOG.info("command: " + command);
         }
     }
 
+    /** using transient because of this class will be serialized */
     @Autowired
     transient DataStore<StoredChannel> channelDataStore;
 
     /** */
-    void processGoogleDriveChange(String channelId) throws IOException {
+    public void processGoogleDriveChange(String channelId) throws IOException {
         StoredChannel storedChannel = new StoredChannel(this::processGoogleDriveChange);
         channelDataStore.set(channelId, storedChannel);
 LOG.info("id added: " + channelId);
+    }
+
+    /** called from {@link GoogleNotificationServlet} */
+    private void processGoogleDriveChange(StoredChannel storedChannel, UnparsedNotification notification) {
+LOG.info("storedChannel: " + storedChannel);
+LOG.info("notification: " + notification);
+        try {
+            // this method will be serialized, so using wired way like followings
+            MyBeanFactory.getNotificationEndpointInternal().sendNotification(notification);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Autowired
+    transient DropBoxNotificationEndpoint dropBoxNotificationEndpoint;
+
+    /** */
+    public void processDropBoxChange(String notification) throws IOException {
+        dropBoxNotificationEndpoint.sendNotification(notification);
+    }
+
+    @Autowired
+    transient BoxNotificationEndpoint boxNotificationEndpoint;
+
+    /** */
+    public void processBoxChange(String notification) throws IOException {
+        boxNotificationEndpoint.sendNotification(notification);
     }
 }
 

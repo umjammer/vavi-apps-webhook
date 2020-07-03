@@ -18,6 +18,11 @@ import com.google.api.client.googleapis.notifications.StoredChannel;
 import com.google.api.client.util.store.DataStore;
 import com.google.api.client.util.store.MemoryDataStoreFactory;
 
+import vavi.net.webhook.box.BoxRequestValidationFilter;
+import vavi.net.webhook.dropbox.DropBoxRequestValidationFilter;
+import vavi.net.webhook.google.GoogleNotificationServlet;
+import vavi.net.webhook.google.GoogleRequestValidationFilter;
+
 
 /**
  * Config.
@@ -43,12 +48,25 @@ public class Config {
     }
 
     @Bean
-    FilterRegistrationBean<RequestValidationFilter> requestValidationFilterRegistrationBean() {
-        FilterRegistrationBean<RequestValidationFilter> bean = new FilterRegistrationBean<>(new RequestValidationFilter());
+    FilterRegistrationBean<GoogleRequestValidationFilter> requestGoogleValidationFilterRegistrationBean() {
+        FilterRegistrationBean<GoogleRequestValidationFilter> bean = new FilterRegistrationBean<>(new GoogleRequestValidationFilter());
         bean.addUrlPatterns("/webhook/google/drive/change/*");
         return bean;
     }
 
+    @Bean
+    FilterRegistrationBean<DropBoxRequestValidationFilter> requestDropBoxValidationFilterRegistrationBean() {
+        FilterRegistrationBean<DropBoxRequestValidationFilter> bean = new FilterRegistrationBean<>(new DropBoxRequestValidationFilter());
+        bean.addUrlPatterns("/webhook/dropbox/webhook");
+        return bean;
+    }
+
+    @Bean
+    FilterRegistrationBean<BoxRequestValidationFilter> requestBoxValidationFilterRegistrationBean() {
+        FilterRegistrationBean<BoxRequestValidationFilter> bean = new FilterRegistrationBean<>(new BoxRequestValidationFilter());
+        bean.addUrlPatterns("/webhook/box/webhook");
+        return bean;
+    }
 }
 
 /* */

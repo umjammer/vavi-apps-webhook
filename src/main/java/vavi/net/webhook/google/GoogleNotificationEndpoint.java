@@ -1,5 +1,5 @@
 
-package vavi.net.webhook;
+package vavi.net.webhook.google;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,14 +27,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
+import vavi.net.webhook.WebHookService;
+import vavi.net.webhook.support.CustomSpringConfigurator;
 
-@ServerEndpoint(value = "/ws",
+
+@ServerEndpoint(value = "/ws/google",
                 configurator = CustomSpringConfigurator.class,
-                decoders = NotificationEndpoint.MyDecoder.class,
-                encoders = NotificationEndpoint.MyEncoder.class)
-public class NotificationEndpoint {
+                decoders = GoogleNotificationEndpoint.MyDecoder.class,
+                encoders = GoogleNotificationEndpoint.MyEncoder.class)
+public class GoogleNotificationEndpoint {
 
-    private static final Logger LOG = LoggerFactory.getLogger(NotificationEndpoint.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GoogleNotificationEndpoint.class);
 
     static Gson gson = new GsonBuilder().addSerializationExclusionStrategy(new ExclusionStrategy() {
         @Override
@@ -94,7 +97,7 @@ public class NotificationEndpoint {
     private WebHookService service;
 
     @Autowired
-    public NotificationEndpoint(WebHookService service) {
+    public GoogleNotificationEndpoint(WebHookService service) {
         this.service = service;
     }
 

@@ -4,7 +4,7 @@
  * Programmed by Naohide Sano
  */
 
-package vavi.net.webhook;
+package vavi.net.webhook.google;
 
 import java.io.IOException;
 
@@ -18,6 +18,7 @@ import com.google.api.client.util.store.DataStore;
  *
  * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
  * @version 0.00 2020/07/01 umjammer initial version <br>
+ * @see "https://console.developers.google.com/apis/credentials/domainverification?project=vavi-apps-fuse"
  */
 public class GoogleNotificationServlet extends NotificationServlet {
 

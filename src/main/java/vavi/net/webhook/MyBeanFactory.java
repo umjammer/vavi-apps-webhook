@@ -9,6 +9,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import vavi.net.webhook.google.GoogleNotificationEndpoint;
+
 
 /**
  * gather spring dependencies.
@@ -24,9 +26,9 @@ public class MyBeanFactory implements InitializingBean {
     BeanFactory beanFactory;
 
     @Autowired
-    NotificationEndpoint notificationEndpoint;
+    GoogleNotificationEndpoint notificationEndpoint;
 
-    private NotificationEndpoint getNotificationEndpoint() {
+    private GoogleNotificationEndpoint getNotificationEndpoint() {
         return notificationEndpoint;
     }
 
@@ -35,7 +37,7 @@ public class MyBeanFactory implements InitializingBean {
         instance = this;
     }
 
-    public static NotificationEndpoint getNotificationEndpointInternal() {
+    public static GoogleNotificationEndpoint getNotificationEndpointInternal() {
         return instance.getNotificationEndpoint();
     }
 }
