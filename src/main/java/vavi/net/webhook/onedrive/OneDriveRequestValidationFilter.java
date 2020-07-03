@@ -42,7 +42,7 @@ public class OneDriveRequestValidationFilter implements Filter {
             if (validationtoken != null) {
 LOG.warn("process verify");
                 ((HttpServletResponse) response).addHeader("Content-Type", "text/plain");
-                ((HttpServletResponse) response).addHeader("X-Content-Type-Options", "nosniff");
+//                ((HttpServletResponse) response).addHeader("X-Content-Type-Options", "nosniff");
                 ((HttpServletResponse) response).getWriter().write(validationtoken);
                 return;
             } else {
