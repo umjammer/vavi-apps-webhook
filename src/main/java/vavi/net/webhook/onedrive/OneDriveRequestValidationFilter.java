@@ -42,7 +42,6 @@ public class OneDriveRequestValidationFilter implements Filter {
             String validationtoken = httpRequest.getParameter("validationtoken");
             if (validationtoken != null) {
 LOG.info("process verify");
-LOG.info("validationtoken: " + validationtoken);
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 httpResponse.setContentType("text/plain");
                 httpResponse.getWriter().write(validationtoken);

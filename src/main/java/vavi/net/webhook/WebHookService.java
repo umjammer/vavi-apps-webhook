@@ -103,7 +103,7 @@ LOG.info("box: " + notification);
 
     /** */
     public void processOneDriveChange(String notification) throws IOException {
-LOG.info("box: " + notification);
+LOG.info("onedrive: " + notification);
         oneDriveNotificationEndpoint.sendNotification(notification);
     }
 
@@ -112,7 +112,7 @@ LOG.info("box: " + notification);
 
     /** */
     public void processMicrosoftChange(String notification) throws IOException {
-LOG.info("box: " + notification);
+LOG.info("microsoft: " + notification);
         microsoftNotificationEndpoint.sendNotification(notification);
     }
 }
