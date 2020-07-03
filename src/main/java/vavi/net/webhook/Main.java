@@ -26,8 +26,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -49,7 +49,7 @@ public class Main {
 
     @RequestMapping("/webhook/dropbox/verify")
     @ResponseBody
-    String dropboxVerify(HttpServletResponse response, @RequestHeader(name = "challenge") String challenge) {
+    String dropboxVerify(HttpServletResponse response, @RequestParam(name = "challenge") String challenge) {
         response.addHeader("Content-Type", "text/plain");
         response.addHeader("X-Content-Type-Options", "nosniff");
         return challenge;
