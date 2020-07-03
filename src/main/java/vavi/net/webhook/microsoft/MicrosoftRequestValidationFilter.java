@@ -44,7 +44,7 @@ public class MicrosoftRequestValidationFilter implements Filter {
 LOG.warn("process verify");
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 httpResponse.setContentType("text/plain");
-                httpResponse.getWriter().write(validationtoken);
+                httpResponse.getWriter().println(validationtoken);
                 return;
             } else {
 LOG.warn("process normal");
