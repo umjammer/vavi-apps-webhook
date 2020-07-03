@@ -41,13 +41,13 @@ public class MicrosoftRequestValidationFilter implements Filter {
             HttpServletRequest httpRequest = new CachedBodyHttpServletRequest((HttpServletRequest) request);
             String validationtoken = httpRequest.getParameter("validationToken");
             if (validationtoken != null) {
-LOG.warn("process verify");
+LOG.info("process verify");
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 httpResponse.setContentType("text/plain");
-                httpResponse.getWriter().println(validationtoken);
+                httpResponse.getWriter().write(validationtoken);
                 return;
             } else {
-LOG.warn("process normal");
+LOG.info("process normal");
                 isValidRequest = checkOneDrive(httpRequest);
                 request = httpRequest;
             }
