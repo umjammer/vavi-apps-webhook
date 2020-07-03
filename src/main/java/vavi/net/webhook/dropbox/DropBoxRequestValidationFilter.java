@@ -45,8 +45,19 @@ public class DropBoxRequestValidationFilter implements Filter {
 
         boolean isValidRequest = false;
         if (request instanceof HttpServletRequest) {
-            request = new CachedBodyHttpServletRequest((HttpServletRequest) request);
-            isValidRequest = checkDropbox((HttpServletRequest) request);
+            HttpServletRequest httpRequest = new CachedBodyHttpServletRequest((HttpServletRequest) request);
+            String challenge = httpRequest.getParameter("challenge");
+            if (challenge != null) {
+LOG.warn("process verify");
+                ((HttpServletResponse) response).addHeader("Content-Type", "text/plain");
+                ((HttpServletResponse) response).addHeader("X-Content-Type-Options", "nosniff");
+                ((HttpServletResponse) response).getWriter().write(challenge);
+                return;
+            } else {
+LOG.warn("process normal");
+                isValidRequest = checkDropbox(httpRequest);
+                request = httpRequest;
+            }
         }
 
         if (isValidRequest) {

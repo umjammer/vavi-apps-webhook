@@ -18,8 +18,6 @@ package vavi.net.webhook;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,7 +25,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -47,22 +44,14 @@ public class Main {
         return "index";
     }
 
-    @RequestMapping("/webhook/dropbox/verify")
-    @ResponseBody
-    String dropboxVerify(HttpServletResponse response, @RequestParam(name = "challenge") String challenge) {
-        response.addHeader("Content-Type", "text/plain");
-        response.addHeader("X-Content-Type-Options", "nosniff");
-        return challenge;
-    }
-
-    @PostMapping("/webhook/dropbox/webhook")
+    @PostMapping("/webhook/dropbox")
     @ResponseBody
     String dropboxWebhook(@RequestBody String notification) throws IOException {
         webHookService.processDropBoxChange(notification);
         return "";
     }
 
-    @PostMapping("/webhook/box/webhook")
+    @PostMapping("/webhook/box")
     @ResponseBody
     String boxWebhook(@RequestBody String notification) throws IOException {
         webHookService.processBoxChange(notification);

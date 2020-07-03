@@ -57,14 +57,14 @@ public class Config {
     @Bean
     FilterRegistrationBean<DropBoxRequestValidationFilter> requestDropBoxValidationFilterRegistrationBean() {
         FilterRegistrationBean<DropBoxRequestValidationFilter> bean = new FilterRegistrationBean<>(new DropBoxRequestValidationFilter());
-        bean.addUrlPatterns("/webhook/dropbox/webhook");
+        bean.addUrlPatterns("/webhook/dropbox");
         return bean;
     }
 
     @Bean
     FilterRegistrationBean<BoxRequestValidationFilter> requestBoxValidationFilterRegistrationBean() {
         FilterRegistrationBean<BoxRequestValidationFilter> bean = new FilterRegistrationBean<>(new BoxRequestValidationFilter());
-        bean.addUrlPatterns("/webhook/box/webhook");
+        bean.addUrlPatterns("/webhook/box");
         return bean;
     }
 }

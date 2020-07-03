@@ -83,6 +83,7 @@ LOG.info("notification: " + notification);
 
     /** */
     public void processDropBoxChange(String notification) throws IOException {
+LOG.info("dropbox: " + notification);
         dropBoxNotificationEndpoint.sendNotification(notification);
     }
 
@@ -91,6 +92,7 @@ LOG.info("notification: " + notification);
 
     /** */
     public void processBoxChange(String notification) throws IOException {
+LOG.info("box: " + notification);
         boxNotificationEndpoint.sendNotification(notification);
     }
 }
