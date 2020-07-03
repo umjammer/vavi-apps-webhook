@@ -127,14 +127,10 @@ LOG.info("CLOSE");
     }
 
     public void sendNotification(UnparsedNotification notification) throws IOException {
-        try {
-            if (session != null) {
-                session.getBasicRemote().sendObject(notification);
-            } else {
-                LOG.warn("no session");
-            }
-        } catch (EncodeException e) {
-            throw new IOException(e);
+        if (session != null) {
+            session.getAsyncRemote().sendObject(notification);
+        } else {
+            LOG.warn("no session");
         }
     }
 }

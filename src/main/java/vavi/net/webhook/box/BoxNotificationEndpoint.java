@@ -3,7 +3,6 @@ package vavi.net.webhook.box;
 
 import java.io.IOException;
 
-import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -58,14 +57,10 @@ LOG.info("CLOSE");
     }
 
     public void sendNotification(String notification) throws IOException {
-        try {
-            if (session != null) {
-                session.getBasicRemote().sendObject(notification);
-            } else {
-                LOG.warn("no session");
-            }
-        } catch (EncodeException e) {
-            throw new IOException(e);
+        if (session != null) {
+            session.getAsyncRemote().sendText(notification);
+        } else {
+            LOG.warn("no session");
         }
     }
 }
