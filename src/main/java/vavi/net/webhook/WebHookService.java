@@ -23,6 +23,8 @@ import com.google.api.client.util.store.DataStore;
 import vavi.net.webhook.box.BoxNotificationEndpoint;
 import vavi.net.webhook.dropbox.DropBoxNotificationEndpoint;
 import vavi.net.webhook.google.GoogleNotificationServlet;
+import vavi.net.webhook.microsoft.MicrosoftNotificationEndpoint;
+import vavi.net.webhook.onedrive.OneDriveNotificationEndpoint;
 
 
 /**
@@ -94,6 +96,24 @@ LOG.info("dropbox: " + notification);
     public void processBoxChange(String notification) throws IOException {
 LOG.info("box: " + notification);
         boxNotificationEndpoint.sendNotification(notification);
+    }
+
+    @Autowired
+    transient OneDriveNotificationEndpoint oneDriveNotificationEndpoint;
+
+    /** */
+    public void processOneDriveChange(String notification) throws IOException {
+LOG.info("box: " + notification);
+        oneDriveNotificationEndpoint.sendNotification(notification);
+    }
+
+    @Autowired
+    transient MicrosoftNotificationEndpoint microsoftNotificationEndpoint;
+
+    /** */
+    public void processMicrosoftChange(String notification) throws IOException {
+LOG.info("box: " + notification);
+        microsoftNotificationEndpoint.sendNotification(notification);
     }
 }
 

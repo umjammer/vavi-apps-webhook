@@ -57,4 +57,18 @@ public class Main {
         webHookService.processBoxChange(notification);
         return "";
     }
+
+    @PostMapping("/webhook/onedrive")
+    @ResponseBody
+    String onedriveWebhook(@RequestBody String notification) throws IOException {
+        webHookService.processOneDriveChange(notification);
+        return "";
+    }
+
+    @PostMapping("/webhook/microsoft")
+    @ResponseBody
+    String microsoftWebhook(@RequestBody String notification) throws IOException {
+        webHookService.processMicrosoftChange(notification);
+        return "";
+    }
 }

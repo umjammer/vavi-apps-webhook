@@ -22,6 +22,8 @@ import vavi.net.webhook.box.BoxRequestValidationFilter;
 import vavi.net.webhook.dropbox.DropBoxRequestValidationFilter;
 import vavi.net.webhook.google.GoogleNotificationServlet;
 import vavi.net.webhook.google.GoogleRequestValidationFilter;
+import vavi.net.webhook.microsoft.MicrosoftRequestValidationFilter;
+import vavi.net.webhook.onedrive.OneDriveRequestValidationFilter;
 
 
 /**
@@ -65,6 +67,20 @@ public class Config {
     FilterRegistrationBean<BoxRequestValidationFilter> requestBoxValidationFilterRegistrationBean() {
         FilterRegistrationBean<BoxRequestValidationFilter> bean = new FilterRegistrationBean<>(new BoxRequestValidationFilter());
         bean.addUrlPatterns("/webhook/box");
+        return bean;
+    }
+
+    @Bean
+    FilterRegistrationBean<OneDriveRequestValidationFilter> requestOneDriveValidationFilterRegistrationBean() {
+        FilterRegistrationBean<OneDriveRequestValidationFilter> bean = new FilterRegistrationBean<>(new OneDriveRequestValidationFilter());
+        bean.addUrlPatterns("/webhook/onedrive");
+        return bean;
+    }
+
+    @Bean
+    FilterRegistrationBean<MicrosoftRequestValidationFilter> requestMicrosoftValidationFilterRegistrationBean() {
+        FilterRegistrationBean<MicrosoftRequestValidationFilter> bean = new FilterRegistrationBean<>(new MicrosoftRequestValidationFilter());
+        bean.addUrlPatterns("/webhook/microsoft");
         return bean;
     }
 }

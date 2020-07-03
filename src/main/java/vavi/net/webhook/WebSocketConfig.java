@@ -13,6 +13,8 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 import vavi.net.webhook.box.BoxNotificationEndpoint;
 import vavi.net.webhook.dropbox.DropBoxNotificationEndpoint;
 import vavi.net.webhook.google.GoogleNotificationEndpoint;
+import vavi.net.webhook.microsoft.MicrosoftNotificationEndpoint;
+import vavi.net.webhook.onedrive.OneDriveNotificationEndpoint;
 import vavi.net.webhook.support.CustomSpringConfigurator;
 
 
@@ -33,6 +35,16 @@ class WebSocketConfig {
     @Bean
     public BoxNotificationEndpoint boxNotificationEndpoint(@Autowired WebHookService webHookService) {
       return new BoxNotificationEndpoint(webHookService);
+    }
+
+    @Bean
+    public OneDriveNotificationEndpoint oneDriveNotificationEndpoint(@Autowired WebHookService webHookService) {
+      return new OneDriveNotificationEndpoint(webHookService);
+    }
+
+    @Bean
+    public MicrosoftNotificationEndpoint microsoftNotificationEndpoint(@Autowired WebHookService webHookService) {
+      return new MicrosoftNotificationEndpoint(webHookService);
     }
 
     @Bean
