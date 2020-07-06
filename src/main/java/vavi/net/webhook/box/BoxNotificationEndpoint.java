@@ -3,62 +3,27 @@ package vavi.net.webhook.box;
 
 import java.io.IOException;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import vavi.net.webhook.NotificationEndpoint;
 import vavi.net.webhook.WebHookService;
 import vavi.net.webhook.support.CustomSpringConfigurator;
 
 
 @ServerEndpoint(value = "/ws/box",
                 configurator = CustomSpringConfigurator.class)
-public class BoxNotificationEndpoint {
-
-    private static final Logger LOG = LoggerFactory.getLogger(BoxNotificationEndpoint.class);
-
-    private WebHookService service;
+public class BoxNotificationEndpoint extends NotificationEndpoint<String> {
 
     @Autowired
     public BoxNotificationEndpoint(WebHookService service) {
-        this.service = service;
-    }
-
-    Session session;
-
-    @OnOpen
-    public void onOpen(Session session) {
-LOG.info("OPEN: " + session);
-        this.session = session;
-    }
-
-    @OnMessage
-    public void handleMessage(Session session, String message) throws IOException {
-LOG.info("MESSAGE: " + message);
-        service.handle(session, message);
-    }
-
-    @OnClose
-    public void onClose(Session session) {
-LOG.info("CLOSE");
-        this.session = null;
-    }
-
-    @OnError
-    public void onError(Throwable t) {
-        t.printStackTrace();;
+        super(service);
     }
 
     public void sendNotification(String notification) throws IOException {
-        if (session != null) {
-            session.getAsyncRemote().sendText(notification);
+        if (getSession() != null) {
+            getSession().getAsyncRemote().sendText(notification);
         } else {
             LOG.warn("no session");
         }
