@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2020 by Naohide Sano, All rights reserved.
+ *
+ * Programmed by Naohide Sano
+ */
+
 package vavi.net.webhook;
 
 import org.springframework.context.annotation.Configuration;
@@ -7,6 +13,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 
+/**
+ * WebSocketSecurityConfig.
+ *
+ * @author <a href="mailto:umjammer@gmail.com">Naohide Sano</a> (umjammer)
+ * @version 0.00 2020/07/05 umjammer initial version <br>
+ */
 @Configuration
 public class WebSocketSecurityConfig extends WebSecurityConfigurerAdapter {
 

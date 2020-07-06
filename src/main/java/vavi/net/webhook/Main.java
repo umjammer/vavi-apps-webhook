@@ -17,6 +17,7 @@
 package vavi.net.webhook;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -25,7 +26,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 
 @Controller
@@ -71,4 +75,14 @@ public class Main {
         webHookService.processMicrosoftChange(notification);
         return "";
     }
+
+    static Gson gson = new Gson();
+
+    @PostMapping("/webhook/v1box")
+    @ResponseBody
+    String v1boxWebhook(@RequestParam Map<String, String> allRequestParams) throws IOException {
+        webHookService.processBoxChange(gson.toJson(allRequestParams));
+        return "";
+    }
+
 }
