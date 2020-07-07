@@ -23,6 +23,7 @@ public abstract class NotificationEndpoint<T> {
         this.service = service;
     }
 
+    // TODO maybe not thread safe
     private Session session;
 
     protected Session getSession() {

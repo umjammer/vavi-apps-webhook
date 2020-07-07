@@ -76,7 +76,7 @@ LOG.warn("rejected by filter");
             sha256_HMAC.init(secretKey);
             byte[] messageBytes = StreamUtils.copyToByteArray(httpRequest.getInputStream());
             byte[] encodedBytes = sha256_HMAC.doFinal(messageBytes);
-            return signature.equals(Hex.encodeHexString(encodedBytes));
+            return signature.equals(new String(Hex.encodeHex(encodedBytes)));
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
 LOG.error(e.getMessage(), e);
             return false;
