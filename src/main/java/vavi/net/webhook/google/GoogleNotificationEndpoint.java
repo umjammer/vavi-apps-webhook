@@ -11,9 +11,9 @@ import com.google.api.client.googleapis.notifications.UnparsedNotification;
 
 import vavi.net.webhook.NotificationEndpoint;
 import vavi.net.webhook.WebHookService;
+import vavi.net.webhook.google.GoogleJsonCodec.GoogleJsonDecoder;
+import vavi.net.webhook.google.GoogleJsonCodec.GoogleJsonEncoder;
 import vavi.net.webhook.support.CustomSpringConfigurator;
-import vavi.nio.file.googledrive.webhook.websocket.GoogleJsonCodec.GoogleJsonDecoder;
-import vavi.nio.file.googledrive.webhook.websocket.GoogleJsonCodec.GoogleJsonEncoder;
 
 
 @ServerEndpoint(value = "/ws/google",
