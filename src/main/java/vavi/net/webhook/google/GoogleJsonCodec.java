@@ -8,11 +8,11 @@ package vavi.net.webhook.google;
 
 import java.io.InputStream;
 
-import javax.websocket.DecodeException;
-import javax.websocket.Decoder;
-import javax.websocket.EncodeException;
-import javax.websocket.Encoder;
-import javax.websocket.EndpointConfig;
+import jakarta.websocket.DecodeException;
+import jakarta.websocket.Decoder;
+import jakarta.websocket.EncodeException;
+import jakarta.websocket.Encoder;
+import jakarta.websocket.EndpointConfig;
 
 import com.google.api.client.googleapis.notifications.UnparsedNotification;
 import com.google.gson.ExclusionStrategy;
@@ -41,7 +41,7 @@ public class GoogleJsonCodec {
         }
     }).create();
 
-    public class GoogleJsonEncoder implements Encoder.Text<UnparsedNotification> {
+    public static class GoogleJsonEncoder implements Encoder.Text<UnparsedNotification> {
         @Override
         public void init(EndpointConfig config) {
         }
@@ -56,7 +56,7 @@ public class GoogleJsonCodec {
         }
     }
 
-    public class GoogleJsonDecoder implements Decoder.Text<UnparsedNotification> {
+    public static class GoogleJsonDecoder implements Decoder.Text<UnparsedNotification> {
 
         @Override
         public void init(EndpointConfig config) {
@@ -86,5 +86,3 @@ public class GoogleJsonCodec {
         }
     }
 }
-
-/* */

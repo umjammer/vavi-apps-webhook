@@ -8,7 +8,6 @@ package vavi.net.webhook.google;
 
 import java.io.IOException;
 
-import com.google.api.client.googleapis.extensions.servlet.notifications.NotificationServlet;
 import com.google.api.client.googleapis.notifications.StoredChannel;
 import com.google.api.client.util.store.DataStore;
 
