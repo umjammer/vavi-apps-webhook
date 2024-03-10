@@ -3,7 +3,7 @@ package vavi.net.webhook.box;
 
 import java.io.IOException;
 
-import javax.websocket.server.ServerEndpoint;
+import jakarta.websocket.server.ServerEndpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 

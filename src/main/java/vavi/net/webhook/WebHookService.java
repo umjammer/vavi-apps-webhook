@@ -9,7 +9,7 @@ package vavi.net.webhook;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.websocket.Session;
+import jakarta.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +76,7 @@ LOG.info("notification: " + notification);
             // this method will be serialized, so using wired way like followings
             MyBeanFactory.getNotificationEndpointInternal().sendNotification(notification);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.toString(), e);
         }
     }
 
